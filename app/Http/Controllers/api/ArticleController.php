@@ -77,7 +77,7 @@ class ArticleController extends Controller
             'title' => 'required',
             'content' => 'required',
             'user_id' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2080',
         ]);
 
         if ($validation->fails()) {
