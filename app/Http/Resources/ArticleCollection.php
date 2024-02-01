@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 use function App\Helpers\checkImg;
+use function App\Helpers\checkVideo;
 
 class ArticleCollection extends ResourceCollection
 {
@@ -24,6 +25,7 @@ class ArticleCollection extends ResourceCollection
                     "title" => $article->title,
                     "content" => $article->content,
                     "image" => checkImg($article->image),
+                    "video" => checkVideo($article->video),
                     "publish_at" => $article->publish_at,
                     "author" => $article->author
                 ];

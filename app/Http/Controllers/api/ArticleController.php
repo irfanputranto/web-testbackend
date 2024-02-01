@@ -77,7 +77,9 @@ class ArticleController extends Controller
             'title' => 'required',
             'content' => 'required',
             'user_id' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2080',
+            'type' => 'in:image,video',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:20800',
+            'video' => 'mimes:mp4,avi,flv,mov,wmv|max:2000000',
         ]);
 
         if ($validation->fails()) {
@@ -86,9 +88,19 @@ class ArticleController extends Controller
         }
 
         try {
+            $video = $request->file('video');
+            $videoNames = '';
+            if ($video) {
+                $videoNames = time() . '.' . $video->extension();
+                $video->storeAs('public/media', $videoNames);
+            }
+
             $image = $request->file('image');
-            $imageName = time() . '.' . $image->extension();
-            $image->storeAs('public/images', $imageName);
+            $imageName = '';
+            if ($image) {
+                $imageName = time() . '.' . $image->extension();
+                $image->storeAs('public/images', $imageName);
+            }
 
             $article = Articel::create([
                 'alias' => generateSlug($request->title),
@@ -96,6 +108,7 @@ class ArticleController extends Controller
                 'content' => $request->content,
                 'user_id' => $request->user_id,
                 'image' => $imageName,
+                'video' => $videoNames,
                 'publish_at' => now(),
             ]);
 

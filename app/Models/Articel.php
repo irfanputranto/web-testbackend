@@ -15,6 +15,7 @@ class Articel extends Model
         'content',
         'user_id',
         'image',
+        'video',
         'publish_at'
     ];
 }
