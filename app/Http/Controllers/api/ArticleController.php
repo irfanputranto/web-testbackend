@@ -79,7 +79,7 @@ class ArticleController extends Controller
             'user_id' => 'required',
             'type' => 'in:image,video',
             'image' => 'mimes:jpeg,png,jpg,gif,svg|max:20800',
-            'video' => 'mimes:mp4,avi,flv,mov,wmv|max:2000000',
+            'video' => 'mimes:mp4,avi,flv,mov,wmv|max:20000',
         ]);
 
         if ($validation->fails()) {
